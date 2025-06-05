@@ -34,3 +34,86 @@ cd myapp
 cp .env.example .env
 make ssl         # Genera certificados locales
 make init        # Inicializa el proyecto Laravel
+```
+
+
+## 🧪 Servicios disponibles
+
+| Servicio | URL | Puerto |
+|-----------|-----------|-----------|
+| App (HTTP)  | http://myapp.test:8888  | 8888  |
+| App (HTTPS)  | https://myapp.test:4433  | 4433  |
+| PhpMyAdmin  | http://localhost:8889  | 8889  |
+| Mailhog  | http://localhost:9025  | 9025  |
+
+Puedes modificar los puertos desde el archivo .env.
+
+---
+
+## 🛠 Comandos útiles (Makefile)
+
+
+```bash
+make up              # Levanta los contenedores
+make down            # Detiene y elimina los contenedores
+make restart         # Reinicia el entorno
+make composer-install # Instala dependencias PHP
+make npm-install     # Instala dependencias JS
+make logs            # Ver logs de todos los servicios
+make ssh-app         # Accede al contenedor de la app
+make ssl             # Genera certificados SSL locales
+```
+---
+
+## 🔗 Variables del entorno
+
+
+```env
+APP_NAME=juanjo
+APP_DOMAIN=myapp.test
+
+APP_HTTP_PORT=8888
+APP_HTTPS_PORT=4433
+MYSQL_PORT=3407
+REDIS_PORT=6480
+MAILHOG_HTTP_PORT=9025
+PHPMYADMIN_PORT=8889
+
+DB_DATABASE=juanjo-laravel-starter-template-db
+DB_USERNAME=root
+DB_PASSWORD=root          # Genera certificados SSL locales
+```
+---
+
+## 🧰 Estructura del proyecto
+```bash
+.
+├── docker/                  # Configuración de servicios
+│   ├── nginx/
+│   ├── mysql/
+│   ├── php/
+│   └── redis/
+├── docker-compose.yml
+├── Makefile
+├── .env
+├── .env.example
+├── .gitignore
+└── src/                     # Proyecto Laravel (se crea automáticamente)
+```
+---
+
+## ✅ ¿Cómo usar esta plantilla para otro proyecto?
+
+-	Clona este repositorio.
+-	Cambia los valores en .env (como el nombre del dominio o puertos).
+-	Ejecuta.
+  
+```bash
+make ssl         # Genera certificados locales
+make init        # Inicializa el proyecto Laravel
+```
+
+---
+
+
+
