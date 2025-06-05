@@ -1,6 +1,6 @@
 # 🚀 Laravel Starter Template con Docker
 
-Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usar con MySQL, Redis, Mailhog y certificados SSL locales.
+Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usar con MySQL, Redis, Mailhog, certificados SSL locales y PhpmyAdmin.
 
 ---
 
