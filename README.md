@@ -31,10 +31,24 @@ Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usa
 ```bash
 git clone https://github.com/cheolindo/laravel-docker-starter-template.git myapp
 cd myapp
+``` 
+- edit the file .env
+    - APP_NAME=myapp-name
+    - DOMAIN_NAME=myapp-name.test
+    - LARAVEL_VERSION=11
+    - APP_HTTP_PORT=8888             #to avoid error if other service is using the default port 
+    - APP_HTTPS_PORT=4433            #to avoid error if other service is using the default port 
+    - MYSQL_PORT=3407                #to avoid error if other service is using the default port 
+    - REDIS_PORT=6480                #to avoid error if other service is using the default port 
+    - MAILHOG_HTTP_PORT=9025         #to avoid error if other service is using the default port 
+    - PHPMYADMIN_PORT=8089           #to avoid error if other service is using the default port 
+    - DB_PASSWORD=secret              
+    - MYSQL_USER=laravel
+
+```bash
 make ssl         # Genera certificados locales
 make init        # Inicializa el proyecto Laravel
-```
-
+``` 
 
 ## 🧪 Servicios disponibles
 
