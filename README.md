@@ -29,7 +29,7 @@ Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usa
 ## ⚙️ Instalación
 
 ```bash
-git clone https://github.com/TU_USUARIO/juanjo-laravel-starter-template.git myapp
+git clone https://github.com/juanjo-magicotools/laravel-docker-starter-template.git myapp
 cd myapp
 cp .env.example .env
 make ssl         # Genera certificados locales
