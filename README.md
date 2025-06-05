@@ -36,19 +36,32 @@ cd myapp
     - APP_NAME=myapp-name
     - DOMAIN_NAME=myapp-name.test
     - LARAVEL_VERSION=11
-    - APP_HTTP_PORT=8888             #to avoid error if other service is using the default port 
-    - APP_HTTPS_PORT=4433            #to avoid error if other service is using the default port 
-    - MYSQL_PORT=3407                #to avoid error if other service is using the default port 
-    - REDIS_PORT=6480                #to avoid error if other service is using the default port 
-    - MAILHOG_HTTP_PORT=9025         #to avoid error if other service is using the default port 
-    - PHPMYADMIN_PORT=8089           #to avoid error if other service is using the default port 
+    - APP_HTTP_PORT=8888             #cambiar para evitar conflicto de puertos si es necesario
+    - APP_HTTPS_PORT=4433            #cambiar para evitar conflicto de puertos si es necesario
+    - MYSQL_PORT=3407                #cambiar para evitar conflicto de puertos si es necesario
+    - REDIS_PORT=6480                #cambiar para evitar conflicto de puertos si es necesario
+    - MAILHOG_HTTP_PORT=9025         #cambiar para evitar conflicto de puertos si es necesario
+    - PHPMYADMIN_PORT=8089           #cambiar para evitar conflicto de puertos si es necesario
     - DB_PASSWORD=secret              
     - MYSQL_USER=laravel
+ 
+- edit ./docker/nginx/default.confg
+    - server_name myapp-name.test;     #cambiar "myapp-name.test" con el mismo DOMAIN_NAME
+    - ssl_certificate /etc/nginx/certs/myapp-name.test.pem; #cambiar "myapp-name.test" con el mismo DOMAIN_NAME
+    - ssl_certificate_key /etc/nginx/certs/myapp-name.test-key.pem;  #cambiar "myapp-name.test" con el mismo DOMAIN_NAME
 
 ```bash
 make ssl         # Genera certificados locales
 make init        # Inicializa el proyecto Laravel
-``` 
+```
+
+   server_name hostingapp.test;
+
+    root /var/www/html/public;
+    index index.php index.html;
+
+    ssl_certificate /etc/nginx/certs/hostingapp.test.pem;
+    ssl_certificate_key /etc/nginx/certs/hostingapp.test-key.pem;
 
 ## 🧪 Servicios disponibles
 
