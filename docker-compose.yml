@@ -10,12 +10,16 @@ services:
     depends_on:
       - mysql
       - redis
+    networks:
+      - laravel
 
   node:
     image: node:20
     working_dir: /var/www/html
     volumes:
       - ./src:/var/www/html
+    networks:
+      - laravel
 
   nginx:
     image: nginx:latest
@@ -29,6 +33,8 @@ services:
       - ./docker/nginx/certs:/etc/nginx/certs
     depends_on:
       - app
+    networks:
+      - laravel
 
   mysql:
     image: mysql:8.0
@@ -41,18 +47,24 @@ services:
       - "${MYSQL_PORT}:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - laravel
 
   redis:
     image: redis:alpine
     container_name: ${APP_NAME}-redis
     ports:
       - "${REDIS_PORT}:6379"
+    networks:
+      - laravel
 
   mailhog:
     image: mailhog/mailhog
     container_name: ${APP_NAME}-mailhog
     ports:
       - "${MAILHOG_HTTP_PORT}:8025"
+    networks:
+      - laravel
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -63,6 +75,13 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${PHPMYADMIN_PORT:-8081}:80"
+    networks:
+      - laravel
 
 volumes:
   mysql-data:
+
+
+networks:
+  laravel:
+    driver: bridge
