@@ -1,8 +1,6 @@
-# 🚀 Laravel Docker Starter Template 
+# 🚀 Laravel Local Dev Template
 
-Todos los que necesitas para trabajar con laravel en docker.
-
-Listo para usar, Incluye MySQL, Redis, Mailhog, certificados SSL locales, Horizon, Supervisor y PhpmyAdmin.
+Plantilla de desarrollo local para Laravel usando Docker, con todo lo necesario para comenzar rápidamente proyectos modernos: PHP, Redis, Mailhog, Supervisor y Horizon preconfigurados.
 
 ---
 
@@ -205,6 +203,30 @@ QUEUE_CONNECTION=redis
 ```
 <img width="1422" alt="image" src="https://github.com/user-attachments/assets/d4424c44-b52b-4702-b9dc-3d1334d74334" />
 
+---
 
+## ✅ ¿Por qué usar esta plantilla?
+	•	Ahorra tiempo configurando tu entorno local.
+	•	Compatible con Horizon y Supervisor desde el inicio.
+	•	Ideal para equipos y freelance que trabajan con Laravel profesionalmente.
+	•	Perfecta como base para microservicios Laravel o proyectos modulares.
 
+---
+
+## 🧪 Testeado en
+	•	Laravel 11
+	•	Docker 24+
+	•	Ubuntu / MacOS
+
+---
+
+## 🤝 Contribuciones
+
+¡Las contribuciones son bienvenidas! Puedes hacer fork o abrir issues para sugerencias o mejoras.
+
+---
+
+### © Licencia
+
+MIT © Magicotools LTD
 
