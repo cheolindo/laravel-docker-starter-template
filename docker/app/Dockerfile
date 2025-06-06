@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copia archivos de configuración de Supervisor
-COPY ./docker/supervisor/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+#COPY ./docker/supervisor/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
 COPY ./docker/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 
 # Establece directorio de trabajo
