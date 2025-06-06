@@ -1,6 +1,11 @@
+![Docker](https://img.shields.io/badge/Docker-Ready-blue)
+![Laravel](https://img.shields.io/badge/Laravel-11-red)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 # 🚀 Laravel Local Dev Template
 
-Plantilla de desarrollo local para Laravel usando Docker, con todo lo necesario para comenzar rápidamente proyectos modernos: PHP, Redis, Mailhog, Supervisor y Horizon preconfigurados.
+
+Esta plantilla está pensada para desarrolladores que desean iniciar proyectos Laravel de forma rápida y confiable en entornos locales. Incluye configuración completa con soporte para colas, caché, correo, HTTPS local y herramientas de monitoreo como Horizon y Supervisor.
 
 ---
 
@@ -35,7 +40,7 @@ cd myapp
 ```
 Cambiar estos valores para evitar conflicto de puertos si es necesario*
 
-- edit the file .env raiz
+- edita el archivo .env raíz
     - APP_NAME=myapp-name
     - DOMAIN_NAME=myapp-name.test
     - LARAVEL_VERSION=11
@@ -51,7 +56,7 @@ Cambiar estos valores para evitar conflicto de puertos si es necesario*
 
 cambiar "myapp-name.test" con el mismo valor de DOMAIN_NAME
 
-- edit ./docker/nginx/default.confg
+- edita ./docker/nginx/default.confg
     - server_name myapp-name.test;     
     - ssl_certificate /etc/nginx/certs/myapp-name.test.pem; 
     - ssl_certificate_key /etc/nginx/certs/myapp-name.test-key.pem; 
@@ -102,20 +107,20 @@ make open            # Abre el proyecto en el navegador
 ---
 
 ## ✅ ¿Que sigue?
-Ya que tines todo el entorno montado puedes trabajar con laravel como normalmente lo haces.
-Vamos a verificar que todo funciona.
+Ya que tienes todo el entorno montado puedes trabajar con laravel como normalmente lo haces.
+Verifica que todo esté funcionando correctamente.
 ```bash
 make open            # Abre el proyecto en el navegador
 make phpmyadmin      # Abre la interfaz phpmyadmin en el navegador [usuario:root, password: secret] o los que definiste en el .env raiz
 make mailhog         # (Opcional) Abre la interfaz mailhog en el navegador
 ```
-## 🔗 configurar tu proyecto laravel si no lo has hecho.
+## 🔗 Configurar tu proyecto Laravel si no lo has hecho.
 ```bash
 APP_URL=https://nombre-de-tu-proyecto.test    #copia la url de tu proyecto, el cual optienes al ejecutar "make open"
 DB_CONNECTION=mysql                           
 DB_HOST=mysql                                 #debe coincidir con el nombre del servicio en docker-compose.yml por defecto "mysql"
 DB_PORT=3306                                  #debe coincidir con el puerto definido en docker-compose.yml por defecto "3306"
-DB_DATABASE=[APP_NAME]-db                     #APP_NAME del .env raiz, también puedes encotrar la DB al lanzar "make phpmyadmin"
+DB_DATABASE=[APP_NAME]-db                     #APP_NAME del .env raiz, también puedes encontrar la DB al lanzar "make phpmyadmin"
 DB_USERNAME=root                              
 DB_PASSWORD=secret                            #debe coincidir con  MYSQL_ROOT_PASSWORD en docker-compose.yml
 
@@ -142,9 +147,9 @@ MAIL_FROM_NAME="${APP_NAME}"
 ```
 
 ```bash
-make ssh-app                  # Entras al contenedor para ejecutar compandos de Artisan o trabajar todo lo que tiene que ver con laravel
+make ssh-app                  # Entras al contenedor para ejecutar comandos de Artisan o trabajar todo lo que tiene que ver con laravel
 php artisan config:clear      # para limpiar la cache y se apliquen los cambios realizados en el archivo .env
-php artisan migrate           # Ejecutamos migraciones y así verificamos que la conexión a la DB esta funcionado
+php artisan migrate           # Ejecutamos migraciones y así verificamos que la conexión a la DB esta funcionando
 ```
 
 ---
@@ -153,7 +158,7 @@ php artisan migrate           # Ejecutamos migraciones y así verificamos que la
 ```bash
 make open            # Abre el proyecto en el navegador
 make mailhog         # (Opcional) Abre la interfaz mailhog en el navegador
-make ssh-app         # Entras al contenedor para ejecutar compandos de Artisan o trabajar todo lo que tiene que ver con laravel
+make ssh-app         # Entras al contenedor para ejecutar comandos de Artisan o trabajar todo lo que tiene que ver con laravel
 
 ##creamos un mailer de prueba
 
@@ -182,7 +187,7 @@ Route::get('/test-mailer', function () {
 
 ```bash
 make open            # Abre el proyecto en el navegador
-make ssh-app         # Entras al contenedor para ejecutar compandos de Artisan o trabajar todo lo que tiene que ver con laravel
+make ssh-app         # Entras al contenedor para ejecutar comandos de Artisan o trabajar todo lo que tiene que ver con laravel
 
 ##Instalamos horizon
 composer require laravel/horizon
@@ -194,11 +199,11 @@ QUEUE_CONNECTION=redis
 
 #Lanza un Job para testear
 #En tu ruta /test-mailer, asegúrate de usar ->queue() en lugar de ->send():
-#Que el mailer implementa queue [implements ShouldQueue]
+# Asegúrate de que el mailer implemente la cola [implements ShouldQueue]
 
 #accedemos a la ruta /test-mailer para crear el job
 #accedemos a la ruta /horizon para visualizar los jobs
-#en este punto deverias ver el job completado ya que esta platilla viene con supervisor configurado 
+#en este punto deverías ver el job completado ya que esta plantilla viene con supervisor configurado 
 
 ```
 <img width="1422" alt="image" src="https://github.com/user-attachments/assets/d4424c44-b52b-4702-b9dc-3d1334d74334" />
