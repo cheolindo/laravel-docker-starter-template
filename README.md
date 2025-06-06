@@ -77,8 +77,7 @@ make init        # Inicializa el proyecto Laravel
 │   │   ├── certs/
 │   │   └── default.conf
 │   └── supervisor/
-│       ├── certs/
-│       └── default.conf
+│       └── supervisord.conf
 ├── docker-compose.yml
 ├── Makefile
 ├── .env
