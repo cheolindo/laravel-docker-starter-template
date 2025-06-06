@@ -42,7 +42,7 @@ down:
 	docker-compose down
 
 restart:
-	docker-compose down && docker-compose up -d
+	docker-compose down && docker-compose up -d --build
 
 
 composer-install:
@@ -63,3 +63,6 @@ open:
 
 phpmyadmin:
 	open http://localhost:$(PHPMYADMIN_PORT)
+
+mailhog:
+	open http://localhost:$(MAILHOG_HTTP_PORT)
