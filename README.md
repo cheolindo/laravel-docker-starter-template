@@ -1,6 +1,8 @@
-# 🚀 Laravel Starter Template con Docker
+# 🚀 Laravel Docker Starter Template 
 
-Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usar con MySQL, Redis, Mailhog, certificados SSL locales y PhpmyAdmin.
+Todos los que necesitas para trabajar con laravel en docker.
+
+Listo para usar, Incluye MySQL, Redis, Mailhog, certificados SSL locales, Horizon, Supervisor y PhpmyAdmin.
 
 ---
 
@@ -15,6 +17,7 @@ Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usa
 - PhpMyAdmin incluido
 - Makefile para automatizar tareas
 - Configuración flexible mediante `.env`
+- Horizon y supervisor para monitorear y ejecutar las colas y jobs
 
 ---
 
@@ -31,37 +34,34 @@ Plantilla de desarrollo para proyectos Laravel utilizando Docker, lista para usa
 ```bash
 git clone https://github.com/cheolindo/laravel-docker-starter-template.git myapp
 cd myapp
-``` 
+```
+Cambiar estos valores para evitar conflicto de puertos si es necesario*
+
 - edit the file .env
     - APP_NAME=myapp-name
     - DOMAIN_NAME=myapp-name.test
     - LARAVEL_VERSION=11
-    - APP_HTTP_PORT=8888             #cambiar para evitar conflicto de puertos si es necesario
-    - APP_HTTPS_PORT=4433            #cambiar para evitar conflicto de puertos si es necesario
-    - MYSQL_PORT=3407                #cambiar para evitar conflicto de puertos si es necesario
-    - REDIS_PORT=6480                #cambiar para evitar conflicto de puertos si es necesario
-    - MAILHOG_HTTP_PORT=9025         #cambiar para evitar conflicto de puertos si es necesario
-    - PHPMYADMIN_PORT=8089           #cambiar para evitar conflicto de puertos si es necesario
+    - APP_HTTP_PORT=8888             
+    - APP_HTTPS_PORT=4433            
+    - MYSQL_PORT=3407                
+    - REDIS_PORT=6480                
+    - MAILHOG_HTTP_PORT=1025         
+    - PHPMYADMIN_PORT=8089           
     - DB_PASSWORD=secret              
     - MYSQL_USER=laravel
- 
+
+
+cambiar "myapp-name.test" con el mismo valor de DOMAIN_NAME
+
 - edit ./docker/nginx/default.confg
-    - server_name myapp-name.test;     #cambiar "myapp-name.test" con el mismo DOMAIN_NAME
-    - ssl_certificate /etc/nginx/certs/myapp-name.test.pem; #cambiar "myapp-name.test" con el mismo DOMAIN_NAME
-    - ssl_certificate_key /etc/nginx/certs/myapp-name.test-key.pem;  #cambiar "myapp-name.test" con el mismo DOMAIN_NAME
+    - server_name myapp-name.test;     
+    - ssl_certificate /etc/nginx/certs/myapp-name.test.pem; 
+    - ssl_certificate_key /etc/nginx/certs/myapp-name.test-key.pem; 
 
 ```bash
 make ssl         # Genera certificados locales
 make init        # Inicializa el proyecto Laravel
 ```
-
-   server_name hostingapp.test;
-
-    root /var/www/html/public;
-    index index.php index.html;
-
-    ssl_certificate /etc/nginx/certs/hostingapp.test.pem;
-    ssl_certificate_key /etc/nginx/certs/hostingapp.test-key.pem;
 
 ## 🧪 Servicios disponibles
 
@@ -69,8 +69,8 @@ make init        # Inicializa el proyecto Laravel
 |-----------|-----------|-----------|
 | App (HTTP)  | http://myapp.test:8888  | 8888  |
 | App (HTTPS)  | https://myapp.test:4433  | 4433  |
-| PhpMyAdmin  | http://localhost:8889  | 8889  |
-| Mailhog  | http://localhost:9025  | 9025  |
+| PhpMyAdmin  | http://localhost:8089  | 8889  |
+| Mailhog  | http://localhost:1025  | 9025  |
 
 Puedes modificar los puertos desde el archivo .env.
 
@@ -80,6 +80,7 @@ Puedes modificar los puertos desde el archivo .env.
 
 
 ```bash
+make init            # Levanta los contenedores y ejecuta todos los comandos en una llamada
 make up              # Levanta los contenedores
 make down            # Detiene y elimina los contenedores
 make restart         # Reinicia el entorno
@@ -91,23 +92,32 @@ make ssl             # Genera certificados SSL locales
 ```
 ---
 
-## 🔗 Variables del entorno
-
-
+## 🔗 Variables del entorno en laravel que deben coincidir con los valores en el archivo docker-compose.yml 
 ```env
-APP_NAME=juanjo
-APP_DOMAIN=myapp.test
-
-APP_HTTP_PORT=8888
-APP_HTTPS_PORT=4433
-MYSQL_PORT=3407
-REDIS_PORT=6480
-MAILHOG_HTTP_PORT=9025
-PHPMYADMIN_PORT=8889
-
-DB_DATABASE=juanjo-laravel-starter-template-db
+APP_URL=https://hostingapp.test
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=myapp-name-db
 DB_USERNAME=root
-DB_PASSWORD=root          # Genera certificados SSL locales
+DB_PASSWORD=secret
+
+SESSION_DRIVER=redis
+QUEUE_CONNECTION=redis
+CACHE_DRIVER=redis
+REDIS_CLIENT=phpredis
+REDIS_HOST=redis
+REDIS_PORT=6379
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="admin@hostingapp.test"
+MAIL_FROM_NAME="${APP_NAME}"
+
+      
 ```
 ---
 
@@ -115,31 +125,29 @@ DB_PASSWORD=root          # Genera certificados SSL locales
 ```bash
 .
 ├── docker/                  # Configuración de servicios
+│   ├── app/
+│   │   └── dockerfile
 │   ├── nginx/
-│   ├── mysql/
-│   ├── php/
-│   └── redis/
+│   │   ├── certs/
+│   │   └── default.conf
+│   └── supervisor/
+│       ├── certs/
+│       └── default.conf
 ├── docker-compose.yml
 ├── Makefile
 ├── .env
-├── .env.example
 ├── .gitignore
 └── src/                     # Proyecto Laravel (se crea automáticamente)
 ```
 ---
 
-## ✅ ¿Cómo usar esta plantilla para otro proyecto?
-
--	Clona este repositorio.
--	Cambia los valores en .env (como el nombre del dominio o puertos).
--	Ejecuta.
-  
+## ✅ ¿Que sigue?
+Ya que tines todo el entorno montado puedes trabajar con laravel como normalmente lo haces.
 ```bash
-make ssl         # Genera certificados locales
-make init        # Inicializa el proyecto Laravel
+make ssh-app        # Entras al contenedor para ejecutar compandos de Artisan o trabajar todo lo que tiene que ver con laravel
 ```
 
----
+
 
 
 
