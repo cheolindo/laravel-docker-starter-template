@@ -62,22 +62,30 @@ cambiar "myapp-name.test" con el mismo valor de DOMAIN_NAME
 make ssl         # Genera certificados locales
 make init        # Inicializa el proyecto Laravel
 ```
-
-## 🧪 Servicios disponibles
-
-| Servicio | URL | Puerto |
-|-----------|-----------|-----------|
-| App (HTTP)  | http://myapp.test:8888  | 8888  |
-| App (HTTPS)  | https://myapp.test:4433  | 4433  |
-| PhpMyAdmin  | http://localhost:8089  | 8889  |
-| Mailhog  | http://localhost:1025  | 9025  |
-
-Puedes modificar los puertos desde el archivo .env.
-
 ---
 
-## 🛠 Comandos útiles (Makefile)
+## 🧰 Estructura del proyecto
+```bash
+.
+├── docker/                  # Configuración de servicios
+│   ├── app/
+│   │   └── dockerfile
+│   ├── nginx/
+│   │   ├── certs/
+│   │   └── default.conf
+│   └── supervisor/
+│       ├── certs/
+│       └── default.conf
+├── docker-compose.yml
+├── Makefile
+├── .env
+├── .gitignore
+└── src/                     # Proyecto Laravel (se crea automáticamente)
+```
+---
 
+
+## 🛠 Comandos útiles (Makefile)
 
 ```bash
 make init            # Levanta los contenedores y ejecuta todos los comandos en una llamada
@@ -89,10 +97,13 @@ make npm-install     # Instala dependencias JS
 make logs            # Ver logs de todos los servicios
 make ssh-app         # Accede al contenedor de la app
 make ssl             # Genera certificados SSL locales
+make mailhog         # Abre la interfaz mailhog en el navegador
+make phpmyadmin      # Abre la interfaz phpmyadmin en el navegador
+make open            # Abre el proyecto en el navegador
 ```
 ---
 
-## 🔗 Variables del entorno en laravel que deben coincidir con los valores en el archivo docker-compose.yml 
+## 🔗 Variables del entorno en laravel que deben coincidir con los valores en el archivo docker-compose.yml
 ```env
 APP_URL=https://hostingapp.test
 DB_CONNECTION=mysql
@@ -116,28 +127,6 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="admin@hostingapp.test"
 MAIL_FROM_NAME="${APP_NAME}"
-
-      
-```
----
-
-## 🧰 Estructura del proyecto
-```bash
-.
-├── docker/                  # Configuración de servicios
-│   ├── app/
-│   │   └── dockerfile
-│   ├── nginx/
-│   │   ├── certs/
-│   │   └── default.conf
-│   └── supervisor/
-│       ├── certs/
-│       └── default.conf
-├── docker-compose.yml
-├── Makefile
-├── .env
-├── .gitignore
-└── src/                     # Proyecto Laravel (se crea automáticamente)
 ```
 ---
 
@@ -146,6 +135,7 @@ Ya que tines todo el entorno montado puedes trabajar con laravel como normalment
 ```bash
 make ssh-app        # Entras al contenedor para ejecutar compandos de Artisan o trabajar todo lo que tiene que ver con laravel
 ```
+
 
 
 
